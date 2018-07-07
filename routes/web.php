@@ -11,5 +11,6 @@
 |
 */
 
-Route::get('/', 'PredictController@index');
-Route::post('/upload', 'PredictController@predict');
+Route::get('/', 'InferenceController@index');
+Route::post('/upload', 'InferenceController@inference');
+Route::get('/test', 'InferenceController@pythontest');
