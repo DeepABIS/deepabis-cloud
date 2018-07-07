@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PredictController@index');
+Route::post('/upload', 'PredictController@predict');

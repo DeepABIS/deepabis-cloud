@@ -1,6 +1,6 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
 
 // Variables
 @import "variables";
@@ -8,7 +8,28 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+body {
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+
+}
+
+section.predict {
+  padding-top: 50px;
+}
+
+.vue-dropzone {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px dashed #aaa;
+  border-radius: 5px;
+
+  &.dz-drag-hover {
+    border-color: $primary-color;
+  }
 }
