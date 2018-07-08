@@ -17,20 +17,26 @@ class InferenceController extends Controller
     {
         $file = $request->file('file');
         Storage::putFile('/predict/', $file);
-    }
 
-    public function pythontest(Request $request)
-    {
-        $path = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+        if (($socket = socket_create(AF_INET, SOCK_STREAM, 0)) === false) {
+            return response('Could not create socket', 500);
+        }
 
-        $process = new Process(config('python.path').'/python inference.py');
-        $process->setWorkingDirectory($path . '/python');
-        $process->run(function ($type, $buffer) {
-            if (Process::ERR === $type) {
-                echo 'ERR > ' . $buffer;
-            } else {
-                echo 'OUT > ' . $buffer;
-            }
-        });
+        if (($connection = socket_connect($socket, '127.0.0.1', 9000)) === false) {
+            return response('Could not connect to server', 500);
+        }
+
+        $data = $file->hashName();
+        socket_write($socket, $data, strlen($data));
+
+        if (($response = socket_read($socket, 1024)) === false) {
+            return response('Could not read input', 500);
+        }
+
+        socket_close($socket);
+
+        $json = json_decode($response);
+
+        return response()->json($json);
     }
 }
