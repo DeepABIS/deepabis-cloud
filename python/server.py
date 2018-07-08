@@ -26,8 +26,9 @@ class InferenceThread(threading.Thread):
                     top5 = self.net.infer_top5(path)
                     response = json.dumps({
                         'top5': top5.tolist(),
+                        'embedding': self.net.embedding,
                     })
-                    self.connection.sendall(response.encode())  # send data to connected client
+                self.connection.sendall(response.encode())  # send data to connected client
             except socket.error as msg:
                 print("Client disconnected")
                 self.connection.close()  # close the socket connection

@@ -1,6 +1,7 @@
 import keras
 import cv2
 import numpy as np
+import json
 from keras.utils import CustomObjectScope
 from sklearn.externals import joblib
 from sklearn.preprocessing import StandardScaler
@@ -19,6 +20,8 @@ class BeeNet:
             self.model: keras.models.Model = keras.models.load_model(path + 'models/beenet_14.hdf5')
             self.model._make_predict_function() # have to initialize before threading
             self.scaler: StandardScaler = joblib.load(path + 'transform/14.pkl')
+            with open(path + 'embedding/14.json') as file:
+                self.embedding = json.load(file)
 
     def transform(self, image):
         img = np.float32(image)
@@ -29,6 +32,7 @@ class BeeNet:
 
     def infer(self, file):
         img = cv2.imread(file, 0)
+        img = cv2.resize(img, (256, 256))
         img = self.transform(img)
 
         batch = np.array([img])

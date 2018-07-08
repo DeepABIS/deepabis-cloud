@@ -29,7 +29,7 @@ class InferenceController extends Controller
         $data = $file->hashName();
         socket_write($socket, $data, strlen($data));
 
-        if (($response = socket_read($socket, 1024)) === false) {
+        if (($response = socket_read($socket, 10*1024)) === false) {
             return response('Could not read input', 500);
         }
 
