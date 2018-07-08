@@ -47246,7 +47246,7 @@ exports = module.exports = __webpack_require__(42)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47721,46 +47721,100 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Predict',
+    name: 'Predict',
 
-  components: {
-    VueDropzone: __WEBPACK_IMPORTED_MODULE_0_vue2_dropzone___default.a
-  },
+    components: {
+        VueDropzone: __WEBPACK_IMPORTED_MODULE_0_vue2_dropzone___default.a
+    },
 
-  data: function data() {
-    return {
-      state: {
-        hover: false
-      }
-    };
-  },
+    data: function data() {
+        return {
+            results: []
+        };
+    },
 
 
-  methods: {
-    fileAdded: function fileAdded(file) {
-      console.log(file);
-    }
-  },
+    methods: {
+        formatted: function formatted(number) {
+            number = (number * 100).toString();
+            return number.substr(0, number.indexOf('.')) + number.substr(number.indexOf('.'), 3);
+        },
+        getBase64: function getBase64(file) {
+            var reader = new FileReader();
+            return new Promise(function (resolve, reject) {
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    return resolve(reader.result);
+                };
+                reader.onerror = function (error) {
+                    return reject(error);
+                };
+            });
+        },
+        fileAdded: function fileAdded(file) {
+            var _this = this;
 
-  computed: {
-    dropzoneOptions: function dropzoneOptions() {
-      console.log(window.Laravel.csrfToken);
-      return {
-        url: '/upload',
-        createImageThumbnails: false,
-        thumbnailWidth: 150,
-        previewTemplate: '<div></div>',
-        dictDefaultMessage: 'Drop images',
-        params: {
-          '_token': window.Laravel.csrfToken
+            console.log(file);
+            this.getBase64(file).then(function (src) {
+                var result = {
+                    uuid: file.upload.uuid,
+                    image: src,
+                    complete: false
+                };
+                _this.results.unshift(result);
+            }).catch(function () {});
+        },
+        sending: function sending(file, xhr, formData) {
+            formData.set('_token', window.Laravel.csrfToken);
+            formData.set('uuid', file.upload.uuid);
+        },
+        success: function success(file, response) {
+            var result = this.results.find(function (result) {
+                return result.uuid === response.uuid;
+            });
+            result.complete = true;
+            result.response = response;
         }
-      };
+    },
+
+    computed: {
+        dropzoneOptions: function dropzoneOptions() {
+            return {
+                url: '/upload',
+                createImageThumbnails: false,
+                thumbnailWidth: 150,
+                previewTemplate: '<div></div>',
+                dictDefaultMessage: 'Drop images'
+            };
+        }
     }
-  }
 });
 
 /***/ }),
@@ -47790,8 +47844,71 @@ var render = function() {
         _vm._v(" "),
         _c("vue-dropzone", {
           attrs: { id: "dropzone", options: _vm.dropzoneOptions },
-          on: { "vdropzone-file-added": _vm.fileAdded }
-        })
+          on: {
+            "vdropzone-sending": _vm.sending,
+            "vdropzone-file-added": _vm.fileAdded,
+            "vdropzone-success": _vm.success
+          }
+        }),
+        _vm._v(" "),
+        _vm.results.length > 0
+          ? _c("h2", { staticClass: "results-headline" }, [_vm._v("Results")])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "results" },
+          _vm._l(_vm.results, function(result) {
+            return _c("div", { staticClass: "result" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-auto" }, [
+                  _c("img", { attrs: { src: result.image, alt: "" } })
+                ]),
+                _vm._v(" "),
+                result.complete
+                  ? _c(
+                      "div",
+                      { staticClass: "col" },
+                      _vm._l(result.response.top5, function(item, index) {
+                        return _c(
+                          "div",
+                          {
+                            staticClass: "row class",
+                            class: { "top-1": index === 0 }
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "col-2 font-weight-bold text-right"
+                              },
+                              [_vm._v(_vm._s(index + 1) + ".")]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-6 text-nowrap" }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(result.response.embedding[item[0]]) +
+                                  "\n                            "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-4 text-right" }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(_vm.formatted(item[1])) +
+                                  "%\n                            "
+                              )
+                            ])
+                          ]
+                        )
+                      })
+                    )
+                  : _vm._e()
+              ])
+            ])
+          })
+        )
       ],
       1
     )

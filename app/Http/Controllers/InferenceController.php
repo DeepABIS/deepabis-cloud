@@ -36,6 +36,7 @@ class InferenceController extends Controller
         socket_close($socket);
 
         $json = json_decode($response);
+        $json->uuid = $request->get('uuid');
 
         return response()->json($json);
     }

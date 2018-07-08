@@ -33,3 +33,30 @@ section.predict {
     border-color: $primary-color;
   }
 }
+
+.results-headline {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.results {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .result {
+        background-color: white;
+        border: 1px solid #aaaaaa;
+        padding: 10px;
+        margin-bottom: 20px;
+
+        .class {
+            margin-bottom: 7px;
+        }
+
+        .class.top-1 {
+            font-weight: bold;
+            font-size: 20px;
+        }
+    }
+}

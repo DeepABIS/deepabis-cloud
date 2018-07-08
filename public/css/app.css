@@ -10439,3 +10439,35 @@ section.predict {
   border-color: #5dc27c;
 }
 
+.results-headline {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.results {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.results .result {
+  background-color: white;
+  border: 1px solid #aaaaaa;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.results .result .class {
+  margin-bottom: 7px;
+}
+
+.results .result .class.top-1 {
+  font-weight: bold;
+  font-size: 20px;
+}
+
