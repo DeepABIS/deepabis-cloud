@@ -7,20 +7,25 @@
                           @vdropzone-file-added="fileAdded" @vdropzone-success="success"></vue-dropzone>
             <h2 class="results-headline" v-if="results.length > 0">Results</h2>
             <div class="results">
-                <div class="result" v-for="result in results">
-                    <div class="row">
-                        <div class="col-auto">
-                            <img :src="result.image" alt=""/>
-                        </div>
-                        <div class="col" v-if="result.complete">
-                            <div class="row class" v-for="(item, index) in result.response.top5"
-                                 :class="{'top-1': index === 0}">
-                                <div class="col-2 font-weight-bold text-right">{{ index + 1}}.</div>
-                                <div class="col-6 text-nowrap">
-                                    {{ result.response.embedding[item[0]] }}
-                                </div>
-                                <div class="col-4 text-right">
-                                    {{ formatted(item[1]) }}%
+                <div class="result-container" v-for="result in results">
+                    <div class="result">
+                        <div class="row">
+                            <div class="col-auto">
+                                <img :src="result.image" alt=""/>
+                            </div>
+                            <div class="col d-flex align-items-center" v-if="!result.complete">
+                                <spinner :status="!result.complete" color="#4fc08d"></spinner>
+                            </div>
+                            <div class="col" v-if="result.complete">
+                                <div class="row class" v-for="(item, index) in result.response.top5"
+                                     :class="{'top-1': index === 0}">
+                                    <div class="col-2 font-weight-bold text-right">{{ index + 1}}.</div>
+                                    <div class="col-6 text-nowrap">
+                                        {{ result.response.embedding[item[0]] }}
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        {{ formatted(item[1]) }}%
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -33,12 +38,14 @@
 
 <script>
     import VueDropzone from 'vue2-dropzone'
+    import Spinner from 'vue-spinner-component/src/Spinner.vue'
 
     export default {
         name: 'Predict',
 
         components: {
             VueDropzone,
+            Spinner,
         },
 
         data () {
@@ -80,6 +87,7 @@
             },
 
             success (file, response) {
+                console.log(response.uuid)
                 const result = this.results.find(result => result.uuid === response.uuid)
                 result.complete = true
                 result.response = response
@@ -95,6 +103,7 @@
                     thumbnailWidth: 150,
                     previewTemplate: '<div></div>',
                     dictDefaultMessage: 'Drop images',
+                    parallelUploads: 1,
                 }
             },
         },

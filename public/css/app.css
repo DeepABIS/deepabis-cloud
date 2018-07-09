@@ -10414,6 +10414,7 @@ a.text-dark:focus {
 body {
   padding: 0;
   margin: 0;
+  font-size: 16px;
 }
 
 section.predict {
@@ -10437,6 +10438,7 @@ section.predict {
 
 .vue-dropzone.dz-drag-hover {
   border-color: #5dc27c;
+  background-color: rgba(93, 194, 124, 0.1);
 }
 
 .results-headline {
@@ -10453,9 +10455,25 @@ section.predict {
           justify-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.results .result-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .results .result {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   background-color: white;
   border: 1px solid #aaaaaa;
   padding: 10px;

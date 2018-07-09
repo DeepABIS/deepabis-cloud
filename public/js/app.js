@@ -47246,7 +47246,7 @@ exports = module.exports = __webpack_require__(42)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47711,6 +47711,8 @@ module.exports = function normalizeComponent (
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_dropzone__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_dropzone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_dropzone__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_spinner_component_src_Spinner_vue__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_spinner_component_src_Spinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_spinner_component_src_Spinner_vue__);
 //
 //
 //
@@ -47744,6 +47746,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -47751,7 +47759,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     name: 'Predict',
 
     components: {
-        VueDropzone: __WEBPACK_IMPORTED_MODULE_0_vue2_dropzone___default.a
+        VueDropzone: __WEBPACK_IMPORTED_MODULE_0_vue2_dropzone___default.a,
+        Spinner: __WEBPACK_IMPORTED_MODULE_1_vue_spinner_component_src_Spinner_vue___default.a
     },
 
     data: function data() {
@@ -47796,6 +47805,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             formData.set('uuid', file.upload.uuid);
         },
         success: function success(file, response) {
+            console.log(response.uuid);
             var result = this.results.find(function (result) {
                 return result.uuid === response.uuid;
             });
@@ -47811,7 +47821,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 createImageThumbnails: false,
                 thumbnailWidth: 150,
                 previewTemplate: '<div></div>',
-                dictDefaultMessage: 'Drop images'
+                dictDefaultMessage: 'Drop images',
+                parallelUploads: 1
             };
         }
     }
@@ -47859,52 +47870,71 @@ var render = function() {
           "div",
           { staticClass: "results" },
           _vm._l(_vm.results, function(result) {
-            return _c("div", { staticClass: "result" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-auto" }, [
-                  _c("img", { attrs: { src: result.image, alt: "" } })
-                ]),
-                _vm._v(" "),
-                result.complete
-                  ? _c(
-                      "div",
-                      { staticClass: "col" },
-                      _vm._l(result.response.top5, function(item, index) {
-                        return _c(
-                          "div",
-                          {
-                            staticClass: "row class",
-                            class: { "top-1": index === 0 }
-                          },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "col-2 font-weight-bold text-right"
-                              },
-                              [_vm._v(_vm._s(index + 1) + ".")]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-6 text-nowrap" }, [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(result.response.embedding[item[0]]) +
-                                  "\n                            "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-4 text-right" }, [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(_vm.formatted(item[1])) +
-                                  "%\n                            "
-                              )
-                            ])
-                          ]
-                        )
-                      })
-                    )
-                  : _vm._e()
+            return _c("div", { staticClass: "result-container" }, [
+              _c("div", { staticClass: "result" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-auto" }, [
+                    _c("img", { attrs: { src: result.image, alt: "" } })
+                  ]),
+                  _vm._v(" "),
+                  !result.complete
+                    ? _c(
+                        "div",
+                        { staticClass: "col d-flex align-items-center" },
+                        [
+                          _c("spinner", {
+                            attrs: {
+                              status: !result.complete,
+                              color: "#4fc08d"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  result.complete
+                    ? _c(
+                        "div",
+                        { staticClass: "col" },
+                        _vm._l(result.response.top5, function(item, index) {
+                          return _c(
+                            "div",
+                            {
+                              staticClass: "row class",
+                              class: { "top-1": index === 0 }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-2 font-weight-bold text-right"
+                                },
+                                [_vm._v(_vm._s(index + 1) + ".")]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-6 text-nowrap" }, [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(result.response.embedding[item[0]]) +
+                                    "\n                                "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-4 text-right" }, [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(_vm.formatted(item[1])) +
+                                    "%\n                                "
+                                )
+                              ])
+                            ]
+                          )
+                        })
+                      )
+                    : _vm._e()
+                ])
               ])
             ])
           })
@@ -47929,6 +47959,230 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(54)
+}
+var normalizeComponent = __webpack_require__(45)
+/* script */
+var __vue_script__ = __webpack_require__(56)
+/* template */
+var __vue_template__ = __webpack_require__(57)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue-spinner-component/src/Spinner.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5d01448a", Component.options)
+  } else {
+    hotAPI.reload("data-v-5d01448a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(55);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(43)("5141e50b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../css-loader/index.js!../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5d01448a\",\"scoped\":false,\"hasInlineConfig\":true}!../../sass-loader/lib/loader.js!../../vue-loader/lib/selector.js?type=styles&index=0!./Spinner.vue", function() {
+     var newContent = require("!!../../css-loader/index.js!../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5d01448a\",\"scoped\":false,\"hasInlineConfig\":true}!../../sass-loader/lib/loader.js!../../vue-loader/lib/selector.js?type=styles&index=0!./Spinner.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(42)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.sl-spinner {\n  border-style: solid;\n  -webkit-transform: translateZ(0);\n  transform: translateZ(0);\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  -webkit-animation-timing-function: linear;\n          animation-timing-function: linear;\n  border-radius: 50%;\n  width: 30px;\n  height: 30px;\n}\n@-webkit-keyframes forward {\n0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n}\n}\n@keyframes forward {\n0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(360deg);\n}\n}\n@-webkit-keyframes backward {\n0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(-360deg);\n}\n}\n@keyframes backward {\n0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n    transform: rotate(-360deg);\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//
+//
+//
+//
+
+exports.default = {
+  props: {
+    status: {
+      type: Boolean,
+      default: true
+    },
+
+    rotation: {
+      type: Boolean,
+      default: true
+    },
+
+    size: {
+      type: Number,
+      default: 30
+    },
+
+    depth: {
+      type: Number,
+      default: 3
+    },
+
+    speed: {
+      type: Number,
+      default: 1.0
+    },
+
+    color: {
+      type: String,
+      default: '#6589b6'
+    }
+  },
+
+  data: function data() {
+    return {
+      rotationAnimations: ['forward', 'backward'],
+      sizeUnits: 'px',
+      timeUnits: 's'
+    };
+  },
+
+
+  computed: {
+    rotationDirection: function rotationDirection() {
+      return this.rotation ? this.rotationAnimations[0] : this.rotationAnimations[1];
+    },
+    spinnerSize: function spinnerSize() {
+      return this.size + this.sizeUnits;
+    },
+    spinnerDepth: function spinnerDepth() {
+      return this.depth + this.sizeUnits;
+    },
+    spinnerSpeed: function spinnerSpeed() {
+      return this.speed + this.timeUnits;
+    },
+    spinnerStyle: function spinnerStyle() {
+      return {
+        borderTopColor: this.hexToRGB(this.color, 0.15),
+        borderRightColor: this.hexToRGB(this.color, 0.15),
+        borderBottomColor: this.hexToRGB(this.color, 0.15),
+        borderLeftColor: this.color,
+        width: this.spinnerSize,
+        height: this.spinnerSize,
+        borderWidth: this.spinnerDepth,
+        animationName: this.rotationDirection,
+        animationDuration: this.spinnerSpeed
+      };
+    }
+  },
+  methods: {
+    hexToRGB: function hexToRGB(hex, alpha) {
+      var r = parseInt(hex.slice(1, 3), 16),
+          g = parseInt(hex.slice(3, 5), 16),
+          b = parseInt(hex.slice(5, 7), 16);
+
+      if (alpha) {
+        return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
+      } else {
+        return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+      }
+    }
+  }
+};
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", {
+    directives: [
+      {
+        name: "show",
+        rawName: "v-show",
+        value: _vm.status,
+        expression: "status"
+      }
+    ],
+    staticClass: "sl-spinner",
+    style: _vm.spinnerStyle
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5d01448a", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
