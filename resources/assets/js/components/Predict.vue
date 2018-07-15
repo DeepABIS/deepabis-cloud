@@ -11,7 +11,7 @@
                     <div class="result">
                         <div class="row">
                             <div class="col-auto">
-                                <img :src="result.image" alt=""/>
+                                <img :src="result.image" alt="" width="256" height="256"/>
                             </div>
                             <div class="col d-flex align-items-center" v-if="!result.complete">
                                 <spinner :status="!result.complete" color="#4fc08d"></spinner>
