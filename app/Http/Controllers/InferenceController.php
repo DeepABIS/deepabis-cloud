@@ -35,6 +35,8 @@ class InferenceController extends Controller
 
         socket_close($socket);
 
+        Storage::delete('/predict/'.$file->hashName());
+
         $json = json_decode($response);
         $json->uuid = $request->get('uuid');
 
