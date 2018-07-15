@@ -8,7 +8,7 @@ class InferenceThread(threading.Thread):
     def __init__(self, net, address, connection):
         threading.Thread.__init__(self)
 
-        self.net: BeeNet = net
+        self.net = net
         self.connection = connection
         self.address = address
 
