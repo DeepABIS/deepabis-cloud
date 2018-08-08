@@ -14,3 +14,9 @@
 Route::get('/', 'InferenceController@index');
 Route::post('/upload', 'InferenceController@inference');
 Route::get('/test', 'InferenceController@pythontest');
+
+Route::group(['prefix' => 'console', 'middleware' => ['auth']], function () {
+    Route::get('/', 'DashboardController@index');
+});
+
+Route::auth();

@@ -11,5 +11,19 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix.webpackConfig({
+    resolve: {
+        alias: {
+            jquery: "jquery/src/jquery"
+        }
+    }
+});
+
+mix.js([
+    'resources/assets/js/bootstrap.js',
+    'resources/assets/js/app.js',
+    'node_modules/adminator/src/assets/scripts/index.js',
+],'public/js/app.js');
+
+mix.sass('resources/assets/sass/app.scss', 'public/css');
+
