@@ -11,67 +11,37 @@
     <title>Laravel</title>
 
 </head>
-<body class="app">
-@include('console.sidenav')
-<div class="page-container">
-    <header class="header navbar">
-        <div class="header-container">
-            <ul class="nav-left">
-                <li>
-                    <a id='sidebar-toggle' class="sidebar-toggle" href="javascript:void(0);">
-                        <i class="ti-menu"></i>
-                    </a>
-                </li>
-                <li class="search-box">
-                    <a class="search-toggle no-pdd-right" href="javascript:void(0);">
-                        <i class="search-icon ti-search pdd-right-10"></i>
-                        <i class="search-icon-close ti-close pdd-right-10"></i>
-                    </a>
-                </li>
-                <li class="search-input">
-                    <input class="form-control" type="text" placeholder="Search...">
-                </li>
-            </ul>
-            <ul class="nav-right">
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-toggle="dropdown">
-                        <div class="peer mR-10">
-                            <img class="w-2r bdrs-50p" src="http://via.placeholder.com/50x50" alt="">
-                        </div>
-                        <div class="peer">
-                            <span class="fsz-sm c-grey-900">{{ \Auth::user()->name }}</span>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu fsz-sm">
-                        <li>
-                            <a href="#" onclick="$(this).next().submit()" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
-                                <i class="ti-power-off mR-10"></i>
-                                <span>Logout</span>
-                            </a>
-                            <form action="{{ route('logout') }}" method="post" style="display: inline">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </header>
-
-    <!-- ### $App Screen Content ### -->
-    <main class='main-content bgc-grey-100' id="app">
-        <div id='mainContent'>
-            <div class="container-fluid">
-                @yield('content')
+<body class="app sidebar-md-show">
+<script type="text/javascript" src="/js/app.js" defer></script>
+<header class="app-header navbar navbar-light">
+    <a class="navbar-brand" href="{{ route('dashboard.index') }}">ABIS</a>
+    <button class="navbar-toggler sidebar-toggler d-md-none ml-4" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="nav navbar-nav ml-auto mr-4">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ Auth::user()->name }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" onclick="$(this).next().submit()" href="#">Action</a>
+                <form action="{{ route('logout') }}" method="post" style="display: inline">
+                    {{ csrf_field() }}
+                </form>
             </div>
+        </li>
+    </ul>
+</header>
+<div class="app-body">
+    <div class="sidebar">
+        @include('console.sidenav')
+    </div>
+    <main class="main" id="app">
+        <!-- Main content here -->
+        <div class="container-fluid mt-3 mb-3">
+            @yield('content')
         </div>
     </main>
-
-    <!-- ### $App Screen Footer ### -->
-    <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
-        <span>Copyright © 2017 Designed by <a href="https://colorlib.com" target='_blank' title="Colorlib">Colorlib</a>. All rights reserved.</span>
-    </footer>
 </div>
-<script type="text/javascript" src="/js/app.js"></script>
 </body>
 </html>

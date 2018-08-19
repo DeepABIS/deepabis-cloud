@@ -5,6 +5,8 @@
  */
 
 require('./bootstrap')
+require( 'datatables.net-bs4' );
+import '@coreui/coreui';
 
 window.Vue = require('vue')
 window.Laravel = {
@@ -30,6 +32,8 @@ window.app = new Vue({
     },
 
 })
+
+$('.data-table').DataTable();
 
 $('.data-table[data-base-url] tbody').on('click', 'tr', (event) => {
     switch (event.target.tagName.toLowerCase()) {

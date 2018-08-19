@@ -1,14 +1,22 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 // Variables
 @import "variables";
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "custom";
+@import "~@coreui/coreui/scss/coreui";
+@import "~@coreui/icons/scss/coreui-icons";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.min.css";
 
 body {
     padding: 0;
     margin: 0;
     font-size: 16px;
+}
+
+.navbar {
+
 }
 
 h1 {

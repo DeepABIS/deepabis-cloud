@@ -1,11 +1,10 @@
 @extends('layout.static')
 
 @section('content')
-<div class="peers">
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
-            <div class="col-12 col-md-6 peer pX-40 pY-80 bgc-white scrollable m-auto" style='min-width: 320px;'>
-                <h4 class="fw-300 c-grey-900 mB-40">Login</h4>
+            <div class="col-12 col-md-6 scrollable m-auto" style='min-width: 320px;'>
+                <h4>Login</h4>
                 <form action="" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -35,6 +34,4 @@
             </div>
         </div>
     </div>
-
-</div>
 @endsection

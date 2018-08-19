@@ -6,7 +6,7 @@
                     <li v-for="spec in species" @click="select(spec)" :class="{'active': active.id === spec.id}">{{ spec.name }}</li>
                 </ul>
             </div>
-            <div class="col-10 p-10">
+            <div class="col-10 p-3">
                 <div class="row">
                     <div class="col-4">
                         <h5>{{ active.name }}</h5>
