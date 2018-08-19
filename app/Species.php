@@ -40,4 +40,9 @@ class Species extends Model
     {
         return $this->hasMany(Sample::class);
     }
+
+    public function datasets()
+    {
+        return $this->belongsToMany(Species::class);
+    }
 }

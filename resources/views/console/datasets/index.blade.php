@@ -13,6 +13,7 @@
     <thead>
     <tr>
         <th>Name</th>
+        <th>Classes</th>
         <th>Examples</th>
         <th>Actions</th>
     </tr>
@@ -20,6 +21,7 @@
     <tfoot>
     <tr>
         <th>Name</th>
+        <th>Classes</th>
         <th>Examples</th>
         <th>Actions</th>
     </tr>
@@ -28,6 +30,7 @@
     @foreach($datasets as $dataset)
         <tr>
             <td>{{ $dataset->name }}</td>
+            <td>{{ \count($dataset->species) }}</td>
             <td>{{ \count($dataset->samples) }}</td>
             <td>
                 <a href="{{ route('datasets.edit', ['dataset' => $dataset]) }}">

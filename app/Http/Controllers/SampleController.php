@@ -15,7 +15,7 @@ class SampleController extends Controller
      */
     public function index()
     {
-        $species = Species::all()->load('samples');
+        $species = Species::all()->load('samples')->sortBy('name')->values();
         return view('console.samples.index', compact('species'));
     }
 

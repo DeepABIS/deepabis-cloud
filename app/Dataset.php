@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Sample[] $samples
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Sample[] $test
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Sample[] $train
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Species[] $species
  */
 class Dataset extends Model
 {
@@ -32,6 +33,11 @@ class Dataset extends Model
         'name',
         'test_size',
     ];
+
+    public function species()
+    {
+        return $this->belongsToMany(Species::class);
+    }
 
     public function samples()
     {

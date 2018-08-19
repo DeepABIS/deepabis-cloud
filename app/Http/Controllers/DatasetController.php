@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Dataset;
 use App\Http\Requests\StoreDataset;
+use App\Species;
 use Illuminate\Http\Request;
 
 class DatasetController extends Controller
@@ -27,7 +28,14 @@ class DatasetController extends Controller
     public function create()
     {
         $dataset = new Dataset();
-        return view('console.datasets.create', compact('dataset'));
+        $genera = Species::all()->groupBy('genus')->map(function ($group, $genus) {
+            $children = $group->map(function ($species) {
+                return ['id' => $species->id, 'label' => $species->species];
+            });
+            return ['id' => $group->map(function ($species){return $species->id;})->implode(','), 'label' => $genus, 'children' => $children];
+        })->values();
+        $selected = [];
+        return view('console.datasets.create', compact('dataset', 'genera', 'selected'));
     }
 
     /**
@@ -40,6 +48,10 @@ class DatasetController extends Controller
     {
         $dataset = new Dataset($request->all());
         $dataset->save();
+        $ids = collect($request->get('species'))->map(function ($field) {
+            return explode(',', $field);
+        })->flatten();
+        $dataset->species()->sync($ids);
         return redirect(route('datasets.index'));
     }
 
@@ -62,8 +74,20 @@ class DatasetController extends Controller
      */
     public function edit($id)
     {
+        /** @var Dataset $dataset */
         $dataset = Dataset::findOrFail($id);
-        return view('console.datasets.edit', compact('dataset'));
+        // Some Vue TreeSelect stuff
+        $genera = Species::all()->groupBy('genus')->map(function ($group, $genus) {
+            $children = $group->map(function ($species) {
+                return ['id' => $species->id, 'label' => $species->species];
+            });
+            return ['id' => $group->map(function ($species){return $species->id;})->implode(','), 'label' => $genus, 'children' => $children];
+        })->values();
+        $selected = $dataset->species->map(function ($species) {return $species->id;});
+        $selected = $selected->merge($dataset->species->groupBy('genus')->map(function ($group, $genus) {
+            return $group->map(function ($species) {return $species->id;})->implode(',');
+        })->values());
+        return view('console.datasets.edit', compact('dataset', 'genera', 'selected'));
     }
 
     /**
