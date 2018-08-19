@@ -25,8 +25,7 @@ class BeeNet:
 
     def transform(self, image):
         img = np.float32(image)
-        img -= self.scaler.mean_
-        img /= 255
+        img = self.scaler.transform(img)
         img = np.reshape(img, (256, 256, 1))
         return img
 
