@@ -61,8 +61,8 @@
     <!-- ### $App Screen Content ### -->
     <main class='main-content bgc-grey-100' id="app">
         <div id='mainContent'>
-            <div class="full-container">
-
+            <div class="container-fluid">
+                @yield('content')
             </div>
         </div>
     </main>

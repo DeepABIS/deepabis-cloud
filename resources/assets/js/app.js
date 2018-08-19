@@ -4,13 +4,13 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./bootstrap')
 
-window.Vue = require('vue');
+window.Vue = require('vue')
 window.Laravel = {
-  csrfToken: document.querySelector('meta[name="csrf-token"]').
-      getAttribute('content'),
-};
+    csrfToken: document.querySelector('meta[name="csrf-token"]').
+        getAttribute('content'),
+}
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -18,14 +18,30 @@ window.Laravel = {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import Predict from './components/Predict.vue';
+import Predict from './components/Predict.vue'
+import Dataset from './components/Dataset.vue'
 
 window.app = new Vue({
-  el: '#app',
+    el: '#app',
 
-  components: {
-    Predict,
-  },
+    components: {
+        Predict,
+        Dataset,
+    },
 
+})
+
+$('.data-table[data-base-url] tbody').on('click', 'tr', (event) => {
+    switch (event.target.tagName.toLowerCase()) {
+        case 'a':
+        case 'button':
+        case 'i':
+            return;
+    }
+
+    const row = event.currentTarget;
+    const urlPrefix = row.parentNode.parentNode.dataset.baseUrl;
+    const urlSuffix = row.dataset.suffix;
+
+    window.location.href = `${urlPrefix}${urlSuffix}`;
 });
-
