@@ -17,9 +17,9 @@ class BeeNet:
     def __init__(self):
         with CustomObjectScope({'relu6': relu6,
                                 'DepthwiseConv2D': keras.layers.DepthwiseConv2D}):
-            self.model = keras.models.load_model(path + 'models/beenet_14.hdf5')
+            self.model = keras.models.load_model(path + 'models/beenet_17.hdf5')
             self.model._make_predict_function() # have to initialize before threading
-            self.scaler = joblib.load(path + 'transform/14.pkl')
+            self.scaler = joblib.load(path + 'transform/17.pkl')
             with open(path + 'embedding/14.json') as file:
                 self.embedding = json.load(file)
 
