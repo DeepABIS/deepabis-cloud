@@ -24,7 +24,7 @@
                 {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" onclick="$(this).next().submit()" href="#">Action</a>
+                <a class="dropdown-item" onclick="$(this).next().submit()" href="#">Logout</a>
                 <form action="{{ route('logout') }}" method="post" style="display: inline">
                     {{ csrf_field() }}
                 </form>
