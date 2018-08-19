@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\DatasetEntry
+ * App\Sample
  *
  * @mixin \Eloquent
  * @property int $id

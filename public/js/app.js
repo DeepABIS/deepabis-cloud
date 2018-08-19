@@ -67373,7 +67373,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             result.response = response;
         },
         remove: function remove(species, entry) {
-            axios.delete('/console/dataset/' + entry.id);
+            axios.delete('/console/data/' + entry.id);
             species.samples.splice(species.samples.indexOf(entry), 1);
         }
     },
@@ -67381,7 +67381,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         dropzoneOptions: function dropzoneOptions() {
             return {
-                url: '/console/dataset',
+                url: '/console/data',
                 createImageThumbnails: true,
                 thumbnailWidth: 150,
                 previewTemplate: '<div></div>',
@@ -67401,12 +67401,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "dataset-container" }, [
+  return _c("div", { staticClass: "data-container" }, [
     _c("div", { staticClass: "row no-gutters" }, [
       _c("div", { staticClass: "col-2 limit-height" }, [
         _c(
           "ul",
-          { staticClass: "dataset-ul" },
+          { staticClass: "data-ul" },
           _vm._l(_vm.species, function(spec) {
             return _c(
               "li",
@@ -67458,7 +67458,7 @@ var render = function() {
               _vm._l(_vm.active.samples, function(entry) {
                 return _c("figure", { staticClass: "example" }, [
                   _c("img", {
-                    attrs: { src: "/console/dataset/" + entry.id, alt: "" }
+                    attrs: { src: "/console/data/" + entry.id, alt: "" }
                   }),
                   _vm._v(" "),
                   _c(

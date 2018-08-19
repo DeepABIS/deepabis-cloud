@@ -6,13 +6,18 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('dataset.index') }}">
-                <i class="nav-icon cui-layers"></i> Dataset
+            <a class="nav-link" href="{{ route('datasets.index') }}">
+                <i class="nav-icon fas fa-database"></i> Datasets
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('species.index') }}">
                 <i class="nav-icon cui-list"></i> Species
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('data.index') }}">
+                <i class="nav-icon fas fa-image"></i> Data
             </a>
         </li>
     </ul>

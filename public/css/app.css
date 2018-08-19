@@ -21395,27 +21395,27 @@ section.predict {
   font-size: 20px;
 }
 
-.dataset-ul {
+.data-ul {
   list-style: none;
   padding: 0;
   border-right: 1px solid #ddd;
 }
 
-.dataset-ul li {
+.data-ul li {
   background-color: white;
   cursor: pointer;
   padding: 10px 20px;
 }
 
-.dataset-ul li:last-of-type {
+.data-ul li:last-of-type {
   border-bottom: 1px solid #ddd;
 }
 
-.dataset-ul li.active {
+.data-ul li.active {
   background-color: rgba(93, 194, 124, 0.1);
 }
 
-.dataset-container {
+.data-container {
   border: 1px solid #ddd;
 }
 

@@ -1,8 +1,8 @@
 <template>
-    <div class="dataset-container">
+    <div class="data-container">
         <div class="row no-gutters">
             <div class="col-2 limit-height">
-                <ul class="dataset-ul">
+                <ul class="data-ul">
                     <li v-for="spec in species" @click="select(spec)" :class="{'active': active.id === spec.id}">{{ spec.name }}</li>
                 </ul>
             </div>
@@ -23,7 +23,7 @@
                         <img :src="result.image" alt="">
                     </figure>
                     <figure v-for="entry in active.samples" class="example">
-                        <img :src="'/console/dataset/' + entry.id" alt="">
+                        <img :src="'/console/data/' + entry.id" alt="">
                         <div class="remove" @click="remove(active, entry)">&times;</div>
                     </figure>
                 </div>
@@ -88,7 +88,7 @@
             },
 
             remove (species, entry) {
-                axios.delete(`/console/dataset/${entry.id}`)
+                axios.delete(`/console/data/${entry.id}`)
                 species.samples.splice(species.samples.indexOf(entry), 1)
             }
 
@@ -97,7 +97,7 @@
         computed: {
             dropzoneOptions () {
                 return {
-                    url: '/console/dataset',
+                    url: '/console/data',
                     createImageThumbnails: true,
                     thumbnailWidth: 150,
                     previewTemplate: '<div></div>',

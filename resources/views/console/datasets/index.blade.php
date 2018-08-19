@@ -3,10 +3,10 @@
 @section('content')
 <div class="row">
     <div class="col-1 mb-3">
-        <h4>Species</h4>
+        <h4>Datasets</h4>
     </div>
     <div class="col-11 text-right">
-        <a href="{{ route('species.create') }}"><button class="btn btn-success">Add species</button></a>
+        <a href="{{ route('datasets.create') }}"><button class="btn btn-success">Add dataset</button></a>
     </div>
 </div>
 <table class="data-table table table-striped table-bordered" cellspacing="0" width="100%">
@@ -25,15 +25,15 @@
     </tr>
     </tfoot>
     <tbody>
-    @foreach($species as $spec)
+    @foreach($datasets as $dataset)
         <tr>
-            <td>{{ $spec->name }}</td>
-            <td>{{ \count($spec->samples) }}</td>
+            <td>{{ $dataset->name }}</td>
+            <td>{{ \count($dataset->samples) }}</td>
             <td>
-                <a href="{{ route('species.edit', ['species' => $spec->id]) }}">
+                <a href="{{ route('datasets.edit', ['dataset' => $dataset]) }}">
                     <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
                 </a>
-                <form action="{{ route('species.destroy', ['species' => $spec->id]) }}" method="post" style="display: inline">
+                <form action="{{ route('datasets.destroy', ['dataset' => $dataset]) }}" method="post" style="display: inline">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}
                     <button class="btn btn-danger"><i class="fas fa-trash"></i></button>

@@ -18,7 +18,8 @@ Route::get('/test', 'InferenceController@pythontest');
 Route::group(['prefix' => 'console', 'middleware' => ['auth']], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard.index');
     Route::resource('species', 'SpeciesController');
-    Route::resource('dataset', 'SampleController');
+    Route::resource('data', 'SampleController');
+    Route::resource('datasets', 'DatasetController');
 });
 
 Route::auth();
