@@ -5,6 +5,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Species::class, function (Faker $faker) {
     return [
-        'name' => $faker->word.' '.$faker->word,
+        'species' => $faker->word,
+        'genus' => $faker->randomElement(['apis', 'bombus', 'osmia', 'lasioglossum', 'megachile']),
     ];
 });

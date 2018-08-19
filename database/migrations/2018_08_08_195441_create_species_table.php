@@ -15,7 +15,8 @@ class CreateSpeciesTable extends Migration
     {
         Schema::create('species', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('genus');
+            $table->string('species');
             $table->timestamps();
         });
     }

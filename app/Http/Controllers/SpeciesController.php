@@ -26,7 +26,8 @@ class SpeciesController extends Controller
     public function create()
     {
         $species = new Species();
-        return view('console.species.create', compact('species'));
+        $genera = Species::distinct()->get(['genus']);
+        return view('console.species.create', compact('species', 'genera'));
     }
 
     /**
@@ -62,7 +63,8 @@ class SpeciesController extends Controller
     public function edit($id)
     {
         $species = Species::findOrFail($id);
-        return view('console.species.edit', compact('species'));
+        $genera = Species::distinct()->get(['genus']);
+        return view('console.species.edit', compact('species', 'genera'));
     }
 
     /**

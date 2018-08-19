@@ -17,12 +17,24 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Species whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Species whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Sample[] $samples
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Species[] $datasets
+ * @property string $genus
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Species whereGenus($value)
+ * @property string $species
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Species whereSpecies($value)
  */
 class Species extends Model
 {
     protected $table = 'species';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['genus', 'species'];
+
+    protected $appends = ['name'];
+
+    public function getNameAttribute()
+    {
+        return $this->genus . ' ' . $this->species;
+    }
 
     public function samples()
     {

@@ -20,6 +20,10 @@ window.Laravel = {
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import VueSimpleSuggest from 'vue-simple-suggest'
+import 'vue-simple-suggest/dist/styles.css'
 import Predict from './components/Predict.vue'
 import Dataset from './components/Dataset.vue'
 
@@ -27,6 +31,8 @@ window.app = new Vue({
     el: '#app',
 
     components: {
+        Treeselect,
+        VueSimpleSuggest,
         Predict,
         Dataset,
     },
