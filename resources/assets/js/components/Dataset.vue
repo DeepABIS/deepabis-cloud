@@ -22,7 +22,7 @@
                     <figure v-for="result in results" class="example">
                         <img :src="result.image" alt="">
                     </figure>
-                    <figure v-for="entry in active.dataset" class="example">
+                    <figure v-for="entry in active.samples" class="example">
                         <img :src="'/console/dataset/' + entry.id" alt="">
                         <div class="remove" @click="remove(active, entry)">&times;</div>
                     </figure>
@@ -89,7 +89,7 @@
 
             remove (species, entry) {
                 axios.delete(`/console/dataset/${entry.id}`)
-                species.dataset.splice(species.dataset.indexOf(entry), 1)
+                species.samples.splice(species.samples.indexOf(entry), 1)
             }
 
         },

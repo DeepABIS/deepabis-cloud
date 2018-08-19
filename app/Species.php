@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Species whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Species whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Species whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Sample[] $samples
  */
 class Species extends Model
 {
@@ -23,8 +24,8 @@ class Species extends Model
 
     protected $fillable = ['name'];
 
-    public function dataset()
+    public function samples()
     {
-        return $this->hasMany(DatasetEntry::class);
+        return $this->hasMany(Sample::class);
     }
 }

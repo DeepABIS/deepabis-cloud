@@ -28,7 +28,7 @@
     @foreach($species as $spec)
         <tr>
             <td>{{ $spec->name }}</td>
-            <td>{{ \count($spec->dataset) }}</td>
+            <td>{{ \count($spec->samples) }}</td>
             <td>
                 <a href="{{ route('species.edit', ['species' => $spec->id]) }}">
                     <button class="btn btn-primary"><i class="fa fa-pencil"></i></button>
