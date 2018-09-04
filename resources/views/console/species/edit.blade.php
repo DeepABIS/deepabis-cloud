@@ -1,4 +1,4 @@
-@extends('layout.console')
+@extends('layouts.console')
 
 @section('content')
 <h4 class="c-grey-900">Edit {{ $species->name }}</h4>

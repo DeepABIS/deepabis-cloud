@@ -1,4 +1,4 @@
-@extends('layout.static')
+@extends('layouts.static')
 
 @section('content')
     <div class="container mt-5">

@@ -30,7 +30,7 @@ class DatasetController extends Controller
         $dataset = new Dataset();
         $genera = Species::all()->groupBy('genus')->map(function ($group, $genus) {
             $children = $group->map(function ($species) {
-                return ['id' => $species->id, 'label' => $species->species];
+                return ['id' => $species->id, 'label' => $species->name];
             });
             return ['id' => $group->map(function ($species){return $species->id;})->implode(','), 'label' => $genus, 'children' => $children];
         })->values();
@@ -79,14 +79,22 @@ class DatasetController extends Controller
         // Some Vue TreeSelect stuff
         $genera = Species::all()->groupBy('genus')->map(function ($group, $genus) {
             $children = $group->map(function ($species) {
-                return ['id' => $species->id, 'label' => $species->species];
+                return ['id' => $species->id, 'label' => $species->name];
             });
             return ['id' => $group->map(function ($species){return $species->id;})->implode(','), 'label' => $genus, 'children' => $children];
         })->values();
-        $selected = $dataset->species->map(function ($species) {return $species->id;});
-        $selected = $selected->merge($dataset->species->groupBy('genus')->map(function ($group, $genus) {
-            return $group->map(function ($species) {return $species->id;})->implode(',');
-        })->values());
+        $selected = $dataset->species->map(function ($species) {return (int)$species->id;})->values();
+        $grouped = $dataset->species->groupBy('genus');
+        $selected = $selected->reject(function ($element) use ($grouped) {
+            foreach ($grouped as $group) {
+                if ($group->contains($element)) return false;
+            }
+            return true;
+        });
+        foreach ($grouped as $group) {
+            if ($group->count() > 1)
+            $selected = $selected->merge($group->map(function ($species) {return (int)$species->id;})->implode(','));
+        }
         return view('console.datasets.edit', compact('dataset', 'genera', 'selected'));
     }
 
@@ -100,6 +108,10 @@ class DatasetController extends Controller
     public function update(StoreDataset $request, Dataset $dataset)
     {
         $dataset->update($request->all());
+        $ids = collect($request->get('species'))->map(function ($field) {
+            return explode(',', $field);
+        })->flatten();
+        $dataset->species()->sync($ids);
         return redirect(route('datasets.index'));
     }
 

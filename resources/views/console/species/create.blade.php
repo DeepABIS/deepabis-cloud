@@ -1,4 +1,4 @@
-@extends('layout.console')
+@extends('layouts.console')
 
 @section('content')
     <div class="card">

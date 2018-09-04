@@ -1,4 +1,4 @@
-@extends('layout.console')
+@extends('layouts.console')
 
 @section('content')
     <h4></h4>

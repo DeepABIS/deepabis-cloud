@@ -20,6 +20,11 @@
                 <i class="nav-icon fas fa-image"></i> Data
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('users.index') }}">
+                <i class="nav-icon fas fa-user"></i> Users
+            </a>
+        </li>
     </ul>
 </nav>
 <button class="sidebar-minimizer brand-minimizer" type="button"></button>

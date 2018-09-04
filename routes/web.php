@@ -20,6 +20,11 @@ Route::group(['prefix' => 'console', 'middleware' => ['auth']], function () {
     Route::resource('species', 'SpeciesController');
     Route::resource('data', 'SampleController');
     Route::resource('datasets', 'DatasetController');
+    Route::resource('users', 'UserController');
 });
 
 Route::auth();
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
