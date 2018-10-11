@@ -14,7 +14,7 @@ class SpeciesController extends Controller
      */
     public function index()
     {
-        $species = Species::all();
+        $species = Species::with(['samples', 'user'])->get();
         return view('console.species.index', compact('species'));
     }
 
@@ -39,6 +39,7 @@ class SpeciesController extends Controller
     public function store(Request $request)
     {
         $species = new Species($request->all());
+        $species->user()->associate(\Auth::user());
         $species->save();
         return redirect(route('species.index'));
     }

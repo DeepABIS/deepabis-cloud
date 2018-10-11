@@ -24,10 +24,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
+ * @property string $role
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRole($value)
  */
 class User extends Authenticatable
 {
     use Notifiable;
+
+    const ROLES = ['admin', 'contributor'];
 
     /**
      * The attributes that are mass assignable.
@@ -46,4 +50,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
 }

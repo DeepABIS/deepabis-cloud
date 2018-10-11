@@ -3,7 +3,9 @@
         <div class="row no-gutters">
             <div class="col-2 limit-height">
                 <ul class="data-ul">
-                    <li v-for="spec in species" @click="select(spec)" :class="{'active': active.id === spec.id}">{{ spec.name }}</li>
+                    <li v-for="spec in species" @click="select(spec)" :class="{'active': active.id === spec.id}">
+                        {{ spec.name }} <span v-if="spec.samples.length > 0">({{ spec.samples.length }})</span>
+                    </li>
                 </ul>
             </div>
             <div class="col-10 p-3">

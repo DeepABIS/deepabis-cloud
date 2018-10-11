@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Species whereGenus($value)
  * @property string $species
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Species whereSpecies($value)
+ * @property int|null $user_id
+ * @property-read \App\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Species whereUserId($value)
  */
 class Species extends Model
 {
@@ -44,5 +47,10 @@ class Species extends Model
     public function datasets()
     {
         return $this->belongsToMany(Species::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -26,6 +26,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Sample[] $test
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Sample[] $train
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Species[] $species
+ * @property int|null $user_id
+ * @property-read \App\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Dataset whereUserId($value)
  */
 class Dataset extends Model
 {
@@ -52,5 +55,10 @@ class Dataset extends Model
     public function test()
     {
         return $this->belongsToMany(Sample::class)->where('test', true);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

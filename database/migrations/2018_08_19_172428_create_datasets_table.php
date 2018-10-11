@@ -19,7 +19,10 @@ class CreateDatasetsTable extends Migration
             $table->float('test_size');
             $table->float('mean')->nullable();
             $table->float('standard_deviation')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

@@ -18,9 +18,11 @@ class CreateSamplesTable extends Migration
             $table->unsignedInteger('species_id');
             $table->string('filename');
             $table->string('path');
+            $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
 
             $table->foreign('species_id')->references('id')->on('species')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

@@ -12,6 +12,10 @@ class SpeciesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Species::class, 124)->create();
+        factory(Species::class, 124)->create()->each(function (Species $species) {
+            $user = \App\User::inRandomOrder()->get()->first();
+            $species->user()->associate($user);
+            $species->save();
+        });
     }
 }

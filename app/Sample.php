@@ -21,11 +21,19 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sample whereSpeciesId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sample whereUpdatedAt($value)
  * @property-read \App\Species $species
+ * @property int|null $user_id
+ * @property-read \App\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Sample whereUserId($value)
  */
 class Sample extends Model
 {
     public function species()
     {
         return $this->belongsTo(Species::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

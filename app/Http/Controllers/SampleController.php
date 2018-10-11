@@ -15,7 +15,7 @@ class SampleController extends Controller
      */
     public function index()
     {
-        $species = Species::all()->load('samples')->sortBy('name')->values();
+        $species = Species::all()->load(['samples', 'user'])->sortBy('name')->values();
         return view('console.samples.index', compact('species'));
     }
 
@@ -43,6 +43,7 @@ class SampleController extends Controller
         $entry->filename = $file->getClientOriginalName();
         $entry->path = \Storage::putFile('dataset', $file);
         $entry->species()->associate($species);
+        $entry->user()->associate(\Auth::user());
         $entry->save();
 
         return response(['uuid' => $request->get('uuid')]);

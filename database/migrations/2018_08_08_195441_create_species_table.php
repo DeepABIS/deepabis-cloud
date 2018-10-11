@@ -17,7 +17,10 @@ class CreateSpeciesTable extends Migration
             $table->increments('id');
             $table->string('genus');
             $table->string('species');
+            $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

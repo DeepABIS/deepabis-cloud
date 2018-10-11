@@ -33,14 +33,18 @@
             <td>{{ \count($dataset->species) }}</td>
             <td>{{ \count($dataset->samples) }}</td>
             <td>
+                @can('update', $dataset)
                 <a href="{{ route('datasets.edit', ['dataset' => $dataset]) }}">
                     <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
                 </a>
+                @endcan
+                @can('delete', $dataset)
                 <form action="{{ route('datasets.destroy', ['dataset' => $dataset]) }}" method="post" style="display: inline">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}
                     <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                 </form>
+                @endcan
             </td>
         </tr>
     @endforeach

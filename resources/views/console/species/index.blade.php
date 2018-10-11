@@ -30,14 +30,18 @@
             <td>{{ $spec->name }}</td>
             <td>{{ \count($spec->samples) }}</td>
             <td>
+                @can('update', $spec)
                 <a href="{{ route('species.edit', ['species' => $spec->id]) }}">
                     <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
                 </a>
+                @endcan
+                @can('delete', $spec)
                 <form action="{{ route('species.destroy', ['species' => $spec->id]) }}" method="post" style="display: inline">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}
                     <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                 </form>
+                @endcan
             </td>
         </tr>
     @endforeach

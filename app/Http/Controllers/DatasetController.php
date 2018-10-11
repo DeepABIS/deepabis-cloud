@@ -47,6 +47,7 @@ class DatasetController extends Controller
     public function store(StoreDataset $request)
     {
         $dataset = new Dataset($request->all());
+        $dataset->user()->associate(\Auth::user());
         $dataset->save();
         $ids = collect($request->get('species'))->map(function ($field) {
             return explode(',', $field);

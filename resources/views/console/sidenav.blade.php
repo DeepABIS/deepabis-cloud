@@ -20,11 +20,13 @@
                 <i class="nav-icon fas fa-image"></i> Data
             </a>
         </li>
+        @can('view', \App\User::class)
         <li class="nav-item">
             <a class="nav-link" href="{{ route('users.index') }}">
                 <i class="nav-icon fas fa-user"></i> Users
             </a>
         </li>
+        @endcan
     </ul>
 </nav>
 <button class="sidebar-minimizer brand-minimizer" type="button"></button>
