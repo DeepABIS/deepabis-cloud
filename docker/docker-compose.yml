@@ -2,9 +2,7 @@ version: "3"
 
 services:
   deepabis:
-    build:
-      context: /users/keanu/Dev/Python/deepabis-inference
-      dockerfile: Dockerfile
+    image: deepabis/deepabis:inference
     working_dir: /app
     tty: true
     ports:
